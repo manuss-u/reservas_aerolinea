@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.BorderFactory;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import reservasaerolinea.Reserva;
 
 public class IGU extends javax.swing.JFrame {
@@ -28,6 +31,15 @@ public class IGU extends javax.swing.JFrame {
         };
 
         initReservas();
+        
+        txtAsiento.setBorder(new CompoundBorder (
+            txtAsiento.getBorder(),
+            new EmptyBorder(0, 5, 0, 5)
+        ));
+        txtNombre.setBorder(new CompoundBorder (
+            txtNombre.getBorder(),
+            new EmptyBorder(0, 5, 0, 5)
+        ));
         
         ocultarPanelPasajero();
         actualizarTodosLosBotones();
@@ -173,7 +185,6 @@ public class IGU extends javax.swing.JFrame {
         JScrollPane sp = new JScrollPane(ta);
         JOptionPane.showMessageDialog(this, sp, "Estado de asientos", JOptionPane.INFORMATION_MESSAGE);
     }
-    
     
     
     private void confirmarReserva() {
@@ -756,11 +767,11 @@ public class IGU extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        // TODO add your handling code here:
+        mostrarEstado();
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        // TODO add your handling code here:
+        reiniciarSistema();
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     /**

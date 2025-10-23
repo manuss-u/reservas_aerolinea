@@ -9,7 +9,7 @@ public class Reserva {
 
     public Reserva(String asiento) {
         this.asiento = asiento;
-        this.nombre = "";
+        this.nombre = null;
         this.ocupado = false;
     }
     
@@ -25,9 +25,22 @@ public class Reserva {
         return ocupado; 
     }
 
-    public void reservar(String nombre) {
+    public boolean reservar(String nombre) {
+        if (nombre == null){
+            return false;
+        }
+        nombre = nombre.trim();
+        if (nombre.isEmpty()){
+            return false;
+        }
         this.nombre = nombre;
         this.ocupado = true;
+        return true;
+    }
+    
+    public void cancelar () {
+        this.nombre = null;
+        this.ocupado = false;
     }
 }
 

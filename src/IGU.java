@@ -58,26 +58,20 @@ public class IGU extends javax.swing.JFrame {
         }
     }
 
-    // ================== TU MÉTODO EXISTENTE ==================
-    // Llamado por cada botón: seleccionarAsiento(btnA1, "A1"), etc.
     private void seleccionarAsiento(JButton boton, String codigoAsiento) {
-        // devolver el color del último seleccionado (si era otro)
+        
         if (ultimoBotonSeleccionado != null && ultimoBotonSeleccionado != boton) {
             ultimoBotonSeleccionado.setBackground(new java.awt.Color(240, 240, 240));
         }
 
-        // guardar selección actual
         ultimoBotonSeleccionado = boton;
         codigoAsientoActual     = codigoAsiento;
 
-        // marcar visualmente el botón actual
         boton.setBackground(new java.awt.Color(200, 200, 200));
 
-        // mostrar panel y asiento
         pnlPasajero.setVisible(true);
         txtAsiento.setText(codigoAsiento);
 
-        // cargar nombre si ya estaba reservado; limpiar si está libre
         int idx = codigoAIndice(codigoAsiento);
         if (idx >= 0) {
             Reserva r = reservas[idx];
@@ -87,40 +81,20 @@ public class IGU extends javax.swing.JFrame {
         pnlPasajero.revalidate();
         pnlPasajero.repaint();
     }
-
-    // ================== PANEL PASAJERO ==================
-
-    // Regla súper simple:
-    // - Si txtNombre está vacío => cancelar reserva
-    // - Si txtNombre tiene texto => reservar/actualizar no
-
-    
-    
-    
     
     private void ocultarPanelPasajero() {
         pnlPasajero.setVisible(false);
         txtAsiento.setText("");
         txtNombre.setText("");
 
-        // Si quieres liberar la “selección visual”, puedes devolver color:
         if (ultimoBotonSeleccionado != null) {
-            // Si quieres que VUELVA al color según su estado (reservado o libre):
             int idx = codigoAIndice(codigoAsientoActual);
             if (idx >= 0) actualizarBotonPorIndice(idx);
         }
 
-        // Ahora sí, limpia referencias
         ultimoBotonSeleccionado = null;
         codigoAsientoActual     = null;
     }
-    
-    
-    // ================== UTILIDADES BÁSICAS ==================
-    // Convierte "A1".."D6" a índice 0..23 SIN listas:
-    // índice = (fila-1)*4 + columna(A=0,B=1,C=2,D=3)
-    
-    
     
     private int codigoAIndice(String codigo) {
         if (codigo == null || codigo.length() < 2) return -1;
@@ -135,7 +109,7 @@ public class IGU extends javax.swing.JFrame {
 
         if (fila < 1 || fila > 6) return -1;
 
-        return (fila - 1) * 4 + colIdx;  // 0..23
+        return (fila - 1) * 4 + colIdx; 
     }
     
   private void actualizarBotonPorIndice(int idx) {
@@ -158,7 +132,6 @@ public class IGU extends javax.swing.JFrame {
         }
     }
 
-    // Opcional: mostrar listas y reiniciar si tienes esos botones
     private void reiniciarSistema() {
         for (int i = 0; i < reservas.length; i++) {
             reservas[i].cancelar();
@@ -200,7 +173,6 @@ public class IGU extends javax.swing.JFrame {
         Reserva r = reservas[idx];
 
         if (nombre.isEmpty()) {
-            // Cancelar reserva si el campo está vacío
             if (r.isOcupado()) {
                 r.cancelar();
                 actualizarBotonPorIndice(idx);
@@ -209,7 +181,6 @@ public class IGU extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ese asiento ya está libre.");
             }
         } else {
-            // Reservar o actualizar
             if (r.reservar(nombre)) {
                 actualizarBotonPorIndice(idx);
                 JOptionPane.showMessageDialog(this, "Reserva confirmada: " + codigoAsientoActual + " para " + nombre + ".");
@@ -218,7 +189,7 @@ public class IGU extends javax.swing.JFrame {
             }
         }
 
-        ocultarPanelPasajero(); // cierra y limpia
+        ocultarPanelPasajero(); 
     }
     
     private void cancelarReserva() {
@@ -774,34 +745,7 @@ public class IGU extends javax.swing.JFrame {
         reiniciarSistema();
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IGU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IGU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IGU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IGU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new IGU().setVisible(true);

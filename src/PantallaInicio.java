@@ -48,7 +48,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         jPanel1.add(btnIniciarPantallaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 150, 40));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sin títuihgbnlo.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, -40, 980, 690));
 
